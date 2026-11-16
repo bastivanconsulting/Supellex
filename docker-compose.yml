@@ -1,0 +1,79 @@
+# supellex — stack complète : PostgreSQL 17 + API Rust + front Next.js (BFF)
+# Lancement : ./install.sh   ou   docker compose up -d --build
+# Tous les secrets viennent de .env à la racine (voir .env.example), jamais
+# commités ni embarqués dans les images (.dockerignore exclut .env).
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: supellex-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: supellex
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD requis dans .env}
+      POSTGRES_DB: supellex
+    ports:
+      # lié à localhost uniquement : l'API y accède par le réseau docker interne
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - supellex-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U supellex -d supellex"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    image: supellex-api:latest
+    container_name: supellex-api
+    restart: unless-stopped
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      DATABASE_URL: postgres://supellex:${POSTGRES_PASSWORD:?POSTGRES_PASSWORD requis dans .env}@postgres:5432/supellex
+      API_PORT: "8080"
+      PUBLIC_BASE_URL: ${PUBLIC_BASE_URL:-http://localhost:3000}
+      PING_INTERVAL_SECONDS: ${PING_INTERVAL_SECONDS:-300}
+      RUST_LOG: ${RUST_LOG:-info,supellex_api=info}
+    ports:
+      # l'API n'est joignable que par le BFF web ; port publié en localhost pour debug
+      - "127.0.0.1:${API_PORT:-8080}:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8080/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 15s
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    image: supellex-web:latest
+    container_name: supellex-web
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      # le front ne parle à l'API que par le réseau interne, jamais directement
+      API_INTERNAL_URL: http://api:8080
+    ports:
+      - "${WEB_PORT:-3000}:3000"
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "node -e \"fetch('http://localhost:3000/login').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))\""]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 20s
+
+volumes:
+  supellex-pgdata:

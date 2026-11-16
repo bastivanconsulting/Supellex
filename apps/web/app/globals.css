@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+/* Charte graphique Bastivan Consulting (relevée sur bastivan.consulting) :
+   accent #bd252a, hover #a31f24, fonds #faf9f7 / #ffffff, texte #202124,
+   muet #55595c, discret #6a6f72, acier #7d858a, lignes #deded9 / #c3c3bc,
+   ok #0f7a4f, info #0e7490. Thème clair (le logo utilisé est "light bg").
+
+   Typographie (charte design Bastivan) : deux familles max, jamais Inter ni
+   Roboto. Titres en serif éditorial système, corps en sans système lisible,
+   polices chargées localement (aucun appel réseau, CSP stricte). */
+@theme {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+
+  --color-canvas: #faf9f7;
+  --color-surface: #ffffff;
+  --color-ink: #202124;
+  --color-muted: #55595c;
+  --color-faint: #6a6f72;
+  --color-steel: #7d858a;
+  --color-line: #deded9;
+  --color-line-strong: #c3c3bc;
+  --color-accent: #bd252a;
+  --color-accent-hover: #a31f24;
+  --color-ok: #0f7a4f;
+  --color-warn: #b45309;
+  --color-info: #0e7490;
+}
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply bg-canvas text-ink antialiased;
+  /* Charte design : corps ≥ 17 px, interligne 1,6, aligné à gauche. */
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+::selection {
+  background: rgb(189 37 42 / 0.18);
+}

@@ -1,0 +1,13 @@
+.git
+.env
+.env.*
+node_modules
+**/node_modules
+.next
+**/.next
+target
+**/target
+*.log
+*.tsbuildinfo
+.DS_Store
+coverage

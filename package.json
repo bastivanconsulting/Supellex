@@ -1,0 +1,17 @@
+{
+  "name": "supellex",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Gestionnaire de parc informatique (ITAM) avec IPAM — open source (MIT)",
+  "packageManager": "pnpm@12.21.0",
+  "scripts": {
+    "build": "pnpm --filter supellex-web build",
+    "dev:web": "pnpm --filter supellex-web dev",
+    "dev:api": "cd apps/api && cargo run",
+    "test:api": "cd apps/api && cargo test",
+    "typecheck": "pnpm --filter supellex-web typecheck && pnpm --filter @supellex/types typecheck",
+    "lint": "pnpm --filter supellex-web lint",
+    "audit": "pnpm audit"
+  },
+  "license": "MIT"
+}

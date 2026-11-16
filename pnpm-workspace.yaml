@@ -1,0 +1,6 @@
+packages:
+  - apps/*
+  - packages/*
+# Depuis pnpm 10, les réglages pnpm vivent ici (plus dans package.json).
+overrides:
+  "minimatch@>=7.0.0 <11.0.1": "11.0.1"

@@ -1,0 +1,95 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  rust:
+    name: API Rust (fmt, clippy, tests, cargo audit)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/api
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: supellex
+          POSTGRES_PASSWORD: ci
+          POSTGRES_DB: supellex
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U supellex -d supellex"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DATABASE_URL: postgres://supellex:ci@localhost:5432/supellex
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          working-directory: apps/api
+      - name: schéma de test (les macros sqlx vérifient les requêtes à la compilation)
+        run: |
+          sudo apt-get update && sudo apt-get install -y postgresql-client
+          for f in migrations/*.sql; do psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -q -f "$f"; done
+      - name: cargo fmt --check
+        run: cargo fmt --check
+      - name: cargo clippy -D warnings
+        run: cargo clippy --all-targets -- --deny warnings
+      - name: cargo test
+        run: cargo test
+      - name: cargo audit (base RUSTSEC, ignores documentés dans .cargo/audit.toml)
+        run: |
+          cargo install cargo-audit --locked
+          cargo audit
+
+  web:
+    name: Front (install, lint, typecheck, build, pnpm audit)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - name: corepack (pnpm épinglé par packageManager)
+        run: |
+          corepack enable
+          corepack prepare pnpm@12.21.0 --activate
+      - name: install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
+      - name: eslint
+        run: pnpm lint
+      - name: tsc --noEmit
+        run: pnpm typecheck
+      - name: build Next.js
+        run: pnpm --filter supellex-web build
+        env:
+          NEXT_TELEMETRY_DISABLED: "1"
+      - name: pnpm audit
+        run: pnpm audit --audit-level=high
+
+  securite:
+    name: Sécurité (gitleaks, docker compose)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      # gitleaks en conteneur (image épinglée v8.30.1) : exit 1 si un secret est trouvé
+      - name: gitleaks (scan des secrets sur tout l'historique)
+        run: docker run --rm -v "$GITHUB_WORKSPACE:/repo" zricethezav/gitleaks:v8.30.1 detect --source /repo --config /repo/.gitleaks.toml --no-banner --redact
+      - name: docker compose config
+        run: POSTGRES_PASSWORD=ci docker compose config -q

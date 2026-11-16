@@ -1,0 +1,10 @@
+title = "Supellex — config gitleaks"
+
+# Faux positifs connus : placeholders d'exemple, aucun secret réel.
+[allowlist]
+description = "Exemples et placeholders sans secret"
+paths = [
+  '''\.env\.example''',
+  '''README\.md''',
+  '''apps/web/app/devices/page\.tsx''',
+]

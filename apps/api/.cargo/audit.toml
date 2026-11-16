@@ -1,0 +1,11 @@
+# libsqlite3-sys (via sqlx-sqlite, dépendance optionnelle de sqlx) n'est jamais
+# compilé : la fonctionnalité "sqlite" de sqlx n'est pas activée. Aucune version
+# patchée ne satisfait la contrainte <0.38.0 de sqlx-sqlite 0.9.0.
+#
+# rsa 0.9.10 (via openidconnect 4.1.0, dernière version stable, qui requiert
+# rsa ^0.9) : RUSTSEC-2023-0071 (attaque Marvin) vise le déchiffrement RSA
+# PKCS#1 v1.5 côté serveur. Nous n'effectuons aucun déchiffrement RSA : la
+# crate ne sert qu'à vérifier les signatures JWKS (clés publiques) des
+# id_token OIDC. Risque non applicable à notre usage.
+[advisories]
+ignore = ["RUSTSEC-2026-0459", "RUSTSEC-2023-0071"]

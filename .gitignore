@@ -1,0 +1,30 @@
+# Secrets - jamais de .env commité
+.env
+.env.local
+.env.*.local
+
+# Rust
+target/
+**/*.rs.bk
+Cargo.lock.bk
+
+# Node
+node_modules/
+.next/
+out/
+dist/
+*.tsbuildinfo
+pnpm-debug.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Divers
+coverage/
+*.log

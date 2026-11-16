@@ -1,0 +1,3 @@
+# Toolchain stable la plus récente (vérifiée via rustup, jamais de mémoire).
+[toolchain]
+channel = "stable"

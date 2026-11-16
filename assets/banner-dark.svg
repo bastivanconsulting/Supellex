@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="320" viewBox="0 0 1200 320" font-family="Helvetica, Arial, sans-serif">
+  <rect width="1200" height="320" fill="#0d0f12"/>
+  <text x="80" y="168" font-family="Georgia, 'Times New Roman', serif" font-size="104" fill="#f5f4f0">Supellex</text>
+  <text x="84" y="222" font-size="29" fill="#9aa0a6">ITAM + IPAM open source, par Bastivan Consulting</text>
+  <rect x="84" y="252" width="72" height="6" fill="#bd252a"/>
+  <g font-family="'Courier New', monospace" font-size="23">
+    <rect x="800" y="56" width="320" height="58" rx="8" fill="#14171c" stroke="#262b33"/>
+    <rect x="820" y="77" width="15" height="15" fill="#bd252a"/>
+    <text x="848" y="90" fill="#e8e6e1">10.10.0.0/24</text>
+    <rect x="840" y="130" width="320" height="58" rx="8" fill="#14171c" stroke="#262b33"/>
+    <rect x="860" y="151" width="15" height="15" fill="#3a4048"/>
+    <text x="888" y="164" fill="#e8e6e1">VLAN 42 · prod</text>
+    <rect x="800" y="204" width="320" height="58" rx="8" fill="#14171c" stroke="#262b33"/>
+    <rect x="820" y="225" width="15" height="15" fill="#3a4048"/>
+    <text x="848" y="238" fill="#e8e6e1">192.168.8.0/24</text>
+  </g>
+</svg>
