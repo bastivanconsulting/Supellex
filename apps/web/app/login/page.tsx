@@ -76,13 +76,13 @@ function LoginInner() {
   return (
     <div className="grid min-h-screen md:grid-cols-[5fr_7fr]">
       {/* Panneau marque, asymétrique : logo en haut, accroche et rappel en bas. */}
-      <div className="hidden flex-col justify-between border-r border-line bg-surface p-10 md:flex">
+      <div className="hidden flex-col justify-between border-r border-line bg-canvas p-10 md:flex">
         <Image
           src="/logo-supellex.svg"
           alt="Supellex"
           width={300}
           height={80}
-          className="h-auto w-full max-w-sm"
+          className="h-auto w-72"
           priority
           unoptimized
         />
@@ -97,7 +97,7 @@ function LoginInner() {
           Supellex · bêta open source (licence MIT).
         </p>
       </div>
-      <div className="flex items-center justify-center bg-canvas p-6">
+      <div className="flex items-center justify-center bg-surface p-6">
         <form
           onSubmit={submit}
           className="w-full max-w-sm rounded-xl border border-line bg-surface p-8 shadow-sm"
