@@ -44,7 +44,7 @@
 > [!TIP]
 > **Installation en deux commandes** (docker requis) :
 > ```bash
-> git clone <ce dépôt> && cd supellex && ./install.sh
+> git clone https://github.com/bastivanconsulting/Supellex && cd Supellex && ./install.sh
 > ```
 > L'interface est ensuite sur `http://localhost:3000`.
 
@@ -88,7 +88,7 @@ Supellex est une **bêta**. Nous proposons cette solution open source pour aider
 <summary><b>Docker</b> (recommandé), stack complète postgres + api + web</summary>
 
 ```bash
-git clone <ce dépôt> && cd supellex
+git clone https://github.com/bastivanconsulting/Supellex && cd Supellex
 ./install.sh
 ```
 
