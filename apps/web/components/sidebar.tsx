@@ -31,14 +31,12 @@ export function Sidebar() {
   return (
     <aside className="flex w-60 flex-col border-r border-line bg-surface p-4">
       <Link href="/dashboard" className="mb-6 block">
-        {/* Bannière panoramique affichée en pleine largeur du panneau.
-            unoptimized : le PNG officiel est servi octet pour octet, jamais
-            réencodé par l'optimiseur (pas de perte q=75 sur un asset de marque). */}
+        {/* Logo Supellex (SVG servi tel quel, jamais réencodé). */}
         <Image
-          src="/logo-bastivan-light-bg.png"
-          alt="Bastivan Consulting"
-          width={781}
-          height={200}
+          src="/logo-supellex.svg"
+          alt="Supellex"
+          width={300}
+          height={80}
           className="h-auto w-full"
           priority
           unoptimized

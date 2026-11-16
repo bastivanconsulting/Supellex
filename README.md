@@ -238,7 +238,7 @@ pnpm --filter supellex-web build    # build front (tsc strict + Tailwind v4)
 
 ## Identité visuelle
 
-Thème clair de la charte Bastivan Consulting (bastivan.consulting) : accent `#bd252a`, fonds `#faf9f7`/`#ffffff`, lignes `#deded9`, logo `logo-bastivan-light-bg.png` servi depuis `apps/web/public/` (sidebar + login). Charte design appliquée : deux polices système max (serif éditorial `font-display` pour les titres, sans pour le corps (jamais Inter/Roboto), corps 17 px / interligne 1,6 aligné à gauche, titres en sentence case, chiffres tabulaires dans les tableaux, un seul jeu d'icônes SVG inline sobre (composant `Icon`), zéro émoji, pas de dégradés, focus visibles (anneau accent) sur tous les contrôles.
+Thème clair de la charte Bastivan Consulting (bastivan.consulting) : accent `#bd252a`, fonds `#faf9f7`/`#ffffff`, lignes `#deded9`, logo `logo-supellex.svg` (wordmark serif + pictogramme grille accent) servi depuis `apps/web/public/` (sidebar + login). Charte design appliquée : deux polices système max (serif éditorial `font-display` pour les titres, sans pour le corps (jamais Inter/Roboto), corps 17 px / interligne 1,6 aligné à gauche, titres en sentence case, chiffres tabulaires dans les tableaux, un seul jeu d'icônes SVG inline sobre (composant `Icon`), zéro émoji, pas de dégradés, focus visibles (anneau accent) sur tous les contrôles.
 
 ## Licence
 

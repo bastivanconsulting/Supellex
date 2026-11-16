@@ -78,10 +78,10 @@ function LoginInner() {
       {/* Panneau marque, asymétrique : logo en haut, accroche et rappel en bas. */}
       <div className="hidden flex-col justify-between border-r border-line bg-surface p-10 md:flex">
         <Image
-          src="/logo-bastivan-light-bg.png"
-          alt="Bastivan Consulting"
-          width={781}
-          height={200}
+          src="/logo-supellex.svg"
+          alt="Supellex"
+          width={300}
+          height={80}
           className="h-auto w-full max-w-sm"
           priority
           unoptimized
@@ -89,12 +89,12 @@ function LoginInner() {
         <div>
           <p className="font-display text-3xl leading-snug">Le parc, sans tableur.</p>
           <p className="mt-4 max-w-sm text-muted">
-            Actifs, annuaire, emplacements et IPAM réunis dans un seul outil interne, tenu à jour
+            Actifs, annuaire, emplacements et IPAM réunis dans un seul outil, tenu à jour
             au fil des arrivées et des départs.
           </p>
         </div>
         <p className="text-sm text-faint">
-          Outil interne Bastivan Consulting&nbsp;: accès réservé aux comptes habilités.
+          Supellex · bêta open source (licence MIT).
         </p>
       </div>
       <div className="flex items-center justify-center bg-canvas p-6">
@@ -104,10 +104,10 @@ function LoginInner() {
         >
           <div className="mb-6 md:hidden">
             <Image
-              src="/logo-bastivan-light-bg.png"
-              alt="Bastivan Consulting"
-              width={781}
-              height={200}
+              src="/logo-supellex.svg"
+              alt="Supellex"
+              width={300}
+              height={80}
               className="h-auto w-40"
               priority
               unoptimized

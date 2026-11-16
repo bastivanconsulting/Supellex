@@ -4,10 +4,10 @@ import type { ReactNode } from "react";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Supellex · gestion de parc & IPAM · Bastivan Consulting",
+  title: "Supellex · gestion de parc & IPAM",
   description:
-    "Gestionnaire de parc informatique et IPAM interne, Bastivan Consulting, Beauvais",
-  // Même favicon officiel que bastivan.consulting (PNG 64x64).
+    "Gestionnaire de parc informatique et IPAM open source (licence MIT)",
+  // Favicon du projet (PNG 64x64).
   icons: {
     icon: [{ url: "/favicon.png", type: "image/png", sizes: "64x64" }],
   },
